@@ -9,27 +9,7 @@ import {getAll} from "./BooksAPI";
 
 function App() {
 
-    useEffect(() => {
-            BooksAPI.getAll().then(data => setBooks(data));
-        },
-        []
-    );
-
-
     const [books, setBooks] = useState([]);
-
-    const updateShelves = (book, dest) => {
-        const updatedBooks = books.map(b => {
-            if (b.id === book.id) {
-                book.shelf = dest;
-                return book;
-            }
-            return b;
-        })
-        setBooks(updatedBooks);
-        BooksAPI.update(updatedBooks, dest);
-    }
-
     const [showSearchPage, setShowSearchpage] = useState(false);
 
     //the search bar query
@@ -37,6 +17,19 @@ function App() {
 
     //the res of the query
     const [queryBooks, setQueryBooks] = useState([])
+
+    const [allBooks, setAllBooks] = useState([]);
+
+    const [idOfBooks, setidOfBooks] = useState(new Map());
+
+    useEffect(() => {
+            BooksAPI.getAll().then(data => {setBooks(data);
+                setidOfBooks(mapOfBooks(data));
+            });
+
+        },
+        []
+    );
 
     useEffect(() => {
         let flag = true;
@@ -46,8 +39,8 @@ function App() {
                 if (data.error)
                     setQueryBooks([]);
                 else
-                    if(flag)
-                        setQueryBooks(data);
+                if(flag)
+                    setQueryBooks(data);
             })
         else
             //show books u have
@@ -63,6 +56,35 @@ function App() {
             setQueryBooks([]);
         }
     }, [query])
+
+    const updateShelves = (book, dest) => {
+        const updatedBooks = books.map(b => {
+            if (b.id === book.id) {
+                book.shelf = dest;
+                return book;
+            }
+            return b;
+        })
+        setBooks(updatedBooks);
+        BooksAPI.update(updatedBooks, dest);
+    }
+
+    useEffect(() => {
+        const sum = queryBooks.map(book => {
+            if(idOfBooks.has(book.id)){
+                return idOfBooks.get(book.id);
+            }else{
+                return book;
+            }
+        })
+        setAllBooks(sum);
+    },[queryBooks]);
+
+    const mapOfBooks = (books) => {
+        const mapOfBooks = new Map();
+        books.map(book => mapOfBooks.set(book.id, book));
+        return mapOfBooks;
+    }
 
     return (
         <div className="app">
@@ -86,7 +108,7 @@ function App() {
                     </div>
                     <div className="search-books-results">
                         <ol className="books-grid">
-                            {queryBooks.map(b => (
+                            {allBooks.map(b => (
                                     <li key={b.id}>
                                         <Book book={b} updateShelves={updateShelves}/>
                                     </li>
