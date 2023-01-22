@@ -11,12 +11,12 @@ const Book = ({book, updateShelves}) => {
                             width: 128,
                             height: 193,
                             backgroundImage:
-                                `url(${book.imageLinks.thumbnail})`,
+                                `url(${book.imageLinks.thumbnail ? book.imageLinks.thumbnail : console.log(undefined)})`,
                         }
                     }
                 ></div>
                 <div className="book-shelf-changer">
-                    <select defaultValue={book.shelf} onChange={(e) => updateShelves(book, e.target.value)}>
+                    <select defaultValue={book.shelf ? book.shelf : "none"} onChange={(e) => updateShelves(book, e.target.value)}>
                         <option value="none" disabled>
                             Move to...
                         </option>
@@ -25,7 +25,6 @@ const Book = ({book, updateShelves}) => {
                         </option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
-                        <option value="none">None</option>
                     </select>
                 </div>
             </div>
