@@ -1,21 +1,26 @@
 import React, {Component} from "react";
 
 const Book = ({book}) => {
+
+    const shelfSelect = () => {
+
+    }
+
     return (<div className="book">
             <div className="book-top">
                 <div
                     className="book-cover"
                     style={
-                    {
-                        width: 128,
-                        height: 193,
-                        backgroundImage:
-                            `url(${book.url})`,
+                        {
+                            width: 128,
+                            height: 193,
+                            backgroundImage:
+                                `url(${book.url})`,
+                        }
                     }
-                }
                 ></div>
                 <div className="book-shelf-changer">
-                    <select defaultValue={book.shelf}>
+                    <select defaultValue={book.shelf} onChange={(e) => shelfSelect(book, e.target.value)}>
                         <option value="none" disabled>
                             Move to...
                         </option>

@@ -5,9 +5,8 @@ import Shelves from "./Components/Shelves";
 
 function App() {
 
-    const intialState = {
-        showSearchPage: false,
-        books: [
+
+    const [books, setBooks] = useState([
             {
                 url: "http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api",
                 title: "To Kill a Mockingbird",
@@ -51,9 +50,9 @@ function App() {
                 shelf: "read",
             }
         ]
-    }
+    );
 
-    const [showSearchPage, setShowSearchpage] = useState(intialState);
+    const [showSearchPage, setShowSearchpage] = useState(false);
 
     return (
         <div className="app">
@@ -81,7 +80,7 @@ function App() {
                 <div className="list-books">
                     <Header/>
                     <div className="list-books-content">
-                        <Shelves books={intialState.books}/>
+                        <Shelves books={books}/>
                     </div>
                     <div className="open-search">
                         <a onClick={() => setShowSearchpage(!showSearchPage)}>Add a book</a>
