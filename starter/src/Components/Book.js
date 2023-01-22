@@ -11,7 +11,7 @@ const Book = ({book, updateShelves}) => {
                             width: 128,
                             height: 193,
                             backgroundImage:
-                                `url(${book.imageLinks.thumbnail ? book.imageLinks.thumbnail : console.log(undefined)})`,
+                                `url(${book.imageLinks ? book.imageLinks.thumbnail : ''})`,
                         }
                     }
                 ></div>

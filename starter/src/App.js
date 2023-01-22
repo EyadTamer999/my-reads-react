@@ -52,7 +52,7 @@ function App() {
             return b;
         })
         setBooks(updatedBooks);
-        BooksAPI.update(updatedBooks, dest);
+        BooksAPI.update(book, dest);
     }
 
     useEffect(() => {
