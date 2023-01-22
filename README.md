@@ -10,6 +10,8 @@ To get started developing right away:
 
 - install all project dependencies with `npm install`
 - start the development server with `npm start`
+- install react with `npm i react-router-dom`
+- install react with `npm i react`
 
 ## What You're Getting
 
